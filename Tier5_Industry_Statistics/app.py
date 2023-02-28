@@ -27,7 +27,7 @@ tier5_data["tooltip"] = tier5_data.Service_Area_Name
 
 
 #   initial region type selected in radio button is Rural-Remote
-tier5_regions = os.listdir(join("S:", "Projects", "DSA", "local_licensing", "industry_datasets", "Rural-Remote"))
+tier5_regions = os.listdir(join("industry_datasets", "Rural-Remote"))
 tier5_industries = []
 
 #   create geoJson layer of tier5 region
@@ -95,7 +95,7 @@ app.layout = html.Div(children=[
 def choose_region_type(region_type):
 
     #read available tier5 datasets
-    tier5_regions = os.listdir(join("S:", "Projects", "DSA", "local_licensing", "industry_datasets", region_type))
+    tier5_regions = os.listdir(join("industry_datasets", region_type))
 
     return  tier5_regions
 
@@ -115,7 +115,7 @@ def choose_region_type(region_type):
 def display_tier5(tier5):
 
     #   read shp file containing all industry polygons
-    all = gpd.read_file(join("S:", "Projects", "DSA", "local_licensing", "industry_datasets", region_type[tier5], tier5, "_all", "gdf.shp"))
+    all = gpd.read_file(join("industry_datasets", region_type[tier5], tier5, "_all", "gdf.shp"))
 
     #   create histogram of area distribution from industry polygons
     histogram = px.histogram(x = all['area']/1000000, title = 'Area Distribution', labels = {'x' : 'area km2'})
@@ -127,7 +127,7 @@ def display_tier5(tier5):
     
     
     #   read industry files and determine what industries exist in the tier5
-    industries = os.listdir(join("S:", "Projects", "DSA", "local_licensing", "industry_datasets", region_type[tier5], tier5))
+    industries = os.listdir(join("industry_datasets", region_type[tier5], tier5))
 
     
     #   load tier5 geojson layer data with selected tier5
